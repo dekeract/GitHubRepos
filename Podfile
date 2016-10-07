@@ -1,8 +1,9 @@
 platform :ios, '9.0'
 
+use_frameworks!
 target 'GitHubReps' do
 
-use_frameworks!
 pod 'Alamofire'
+pod 'AlamofireImage'
 
 end

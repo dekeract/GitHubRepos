@@ -7,18 +7,29 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class RepoTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet private weak var nameLabel: UILabel?
+    @IBOutlet private weak var avatarImageView: UIImageView?
+    @IBOutlet private weak var descLabel: UILabel?
+    @IBOutlet private weak var urlButton: UIButton?
+    
+    var repo = Repo() {
+        didSet {
+            nameLabel?.text = repo.ownerName
+            descLabel?.text = repo.description
+            urlButton?.setTitle(repo.url?.absoluteString, for: .normal)
+            
+            if let url = URL(string: repo.ownerAvatar) {
+                avatarImageView?.af_setImage(withURL: url)
+            }
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBAction func onUrlButtonTapped(_ sender: AnyObject) {
+        if let url = repo.url {
+            UIApplication.shared.openURL(url)
+        }
     }
-
 }
